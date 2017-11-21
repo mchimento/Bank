@@ -8,7 +8,10 @@ package bank;
  */
 public class SystemCentral {
 
+	/** Maximum amount of logged users at the same time. */
+	private static int MAX_USERS_AMOUNT = 3 ;
+	
     /** The set of logged users. */
-    public static HashTable users = new HashTable (3);
+    public static HashTable users = new HashTable (MAX_USERS_AMOUNT);
     
 }

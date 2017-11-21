@@ -32,7 +32,7 @@ public class UserInterface {
     }	
 	
     /**
-     * Logs a user into the system.
+     * Logs a user into the system, and associates the instance of the interface to him/her.
      *
      * @param userName the user name
      * @param password the password
