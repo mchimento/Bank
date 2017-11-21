@@ -27,7 +27,7 @@ public class User {
     private Category.Type category ;
 
     /**
-     * Instantiates a new user.
+     * Instantiates a new user. New users have the lowest category.
      *
      * @param userName the user name
      * @param name the name of the user

@@ -18,7 +18,7 @@ public class Account {
      /** Used to generate unique id numbers. */
      private static int count = 1;
      
-     /** The extraction limit of the account. */
+     /** The extraction limit of the account. 0 means no limit on the extraction. */
      private int extractionLimit ;
      
      /**
@@ -50,6 +50,15 @@ public class Account {
       * @param receiver account which will receive the money
       */
      public void transfer(int money, Account receiver) {         
+     }
+
+     /**
+      * Gets the id of the account.
+      *
+      * @return the id of the account
+      */
+     public int getId() {
+        return 0;
      }
      
      /**
