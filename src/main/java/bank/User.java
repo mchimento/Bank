@@ -9,23 +9,23 @@ package bank;
 public class User {
     
     /** The password of the user. */
-    private int password;
-    
+    private /*@ spec_public @*/ int password;
+       
     /** The user name. */
-    private String userName;
-    
+    private /*@ spec_public non_null @*/ String userName;
+        
     /** The actual name of the user. */
-    private String name;
+    private /*@ spec_public non_null @*/ String name;
     
     /** The surname of the user. */
-    private String surname;
+    private /*@ spec_public non_null @*/ String surname;
     
     /** The account of the user. */
-    private Account account;
+    private /*@ spec_public nullable @*/ Account account;
     
     /** The category of the user. */
-    private Category.Type category ;
-
+    private /*@ spec_public @*/ Category.Type category ;
+    
     /**
      * Instantiates a new user. New users have the lowest category.
      *
@@ -34,6 +34,11 @@ public class User {
      * @param surname the surname of the user
      * @param id the password
      */
+  /*@ public normal_behaviour
+    @ ensures this.userName == userName && this.name == name && this.surname == surname ; 
+    @ ensures account == null && password == id && category == Category.Type.Bronze ;
+    @ assignable \everything ;
+    @ */      
     User (String userName, String name, String surname, int id) {}
     
     /**
@@ -41,6 +46,10 @@ public class User {
      *
      * @param c the new category
      */
+  /*@ public normal_behaviour
+    @ ensures category == c ;
+    @ assignable category ;          
+    @ */
     public void setCategory(Category.Type c){
     	
     }
@@ -50,7 +59,10 @@ public class User {
      *
      * @return the category of the user
      */
-    public Category.Type getCategory(){
+  /*@ public normal_behaviour
+    @ ensures \result == category ;          
+    @ */      
+    public /*@ pure @*/ Category.Type getCategory(){
     	return null;
     }
 
@@ -59,6 +71,10 @@ public class User {
      *
      * @param pass the password for the user
      */
+  /*@ public normal_behaviour
+    @ ensures password == pass ;
+    @ assignable password ;          
+    @ */    
     public void setPassword (int pass) {
 
     }
@@ -68,7 +84,10 @@ public class User {
      *
      * @return the password of the user
      */
-    public int getPassword () {
+  /*@ public normal_behaviour
+    @ ensures \result == password ;          
+    @ */      
+    public /*@ pure @*/ int getPassword () {
         return 0;
     }
 
@@ -77,7 +96,10 @@ public class User {
      *
      * @return the user name
      */
-    public String getUserName (){
+  /*@ public normal_behaviour
+    @ ensures \result == userName ;          
+    @ */          
+    public /*@ pure @*/ String getUserName (){
         return "";
     }
     
@@ -86,6 +108,10 @@ public class User {
      *
      * @param uname the user name
      */
+  /*@ public normal_behaviour
+    @ ensures userName == uname ;
+    @ assignable userName ;         
+    @ */
     public void setUserName (String uname) {
 
     }
@@ -95,7 +121,10 @@ public class User {
      *
      * @return the name of the user
      */
-    public String getName (){
+  /*@ public normal_behaviour
+    @ ensures \result == name ;          
+    @ */          
+    public /*@ pure @*/ String getName (){
         return "";
     }
 
@@ -104,6 +133,10 @@ public class User {
      *
      * @param name the name for the user
      */
+  /*@ public normal_behaviour
+    @ ensures this.name == name ;
+    @ assignable name ;          
+    @ */    
     public void setName (String name) {
 
     }
@@ -113,7 +146,10 @@ public class User {
      *
      * @return the surname for the user
      */
-    public String getSurname () {
+  /*@ public normal_behaviour
+    @ ensures \result == surname ;          
+    @ */          
+    public String /*@ pure @*/ getSurname () {
         return "";
     }
 
@@ -122,6 +158,10 @@ public class User {
      *
      * @param surname the surname for the user
      */
+  /*@ public normal_behaviour
+    @ ensures this.surname == surname ;
+    @ assignable surname ;          
+    @ */
     public void setSurname (String surname) {
 
     }
@@ -131,7 +171,10 @@ public class User {
      *
      * @return the account of the user
      */
-    public Account getAccount() {
+  /*@ public normal_behaviour
+    @ ensures \result == account ;          
+    @ */      
+    public Account /*@ pure @*/ getAccount() {
          return null;
     }
     
@@ -140,15 +183,11 @@ public class User {
      *
      * @param acc the account for the user
      */
+  /*@ public normal_behaviour
+    @ ensures account == acc ;
+    @ assignable account ;          
+    @ */   
     public void setAccount (Account acc) {
-
-    }
-
-
-    /* (non-Javadoc)
-     * @see java.lang.Object#toString()
-     */
-    public String toString(){
-        return "";
+        account = acc ;
     }
 }
