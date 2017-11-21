@@ -143,12 +143,4 @@ public class User {
     public void setAccount (Account acc) {
 
     }
-
-
-    /* (non-Javadoc)
-     * @see java.lang.Object#toString()
-     */
-    public String toString(){
-        return "";
-    }
 }
