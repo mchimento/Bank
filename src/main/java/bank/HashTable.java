@@ -58,10 +58,9 @@ public class HashTable {
      * Otherwise, it returns -1.
      *
      * @param u the object to search in the hashtable
-     * @param key the index where u should be placed (before using the hash function)
      * @return the actual index where u is placed
      */
-    public int contains (Object u, int key) {
+    public int contains (Object u) {
        return 0;
     }
 	
