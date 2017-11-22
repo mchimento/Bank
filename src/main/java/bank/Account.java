@@ -79,7 +79,8 @@ public class Account {
       */
    /*@ public normal_behaviour
      @ requires money > 0 && receiver.getBalance() - money >= 0 ;
-     @ ensures receiver.getBalance() == \old(receiver.getBalance()) - money ;
+     @ ensures receiver.getBalance() == \old(receiver.getBalance()) + money ;
+     @ ensures balance == \old(balance) - money ;
      @ assignable balance ;
      @
      @ also
