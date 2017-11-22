@@ -8,12 +8,20 @@ package bank;
  */
 public class HashTable {
     
-    /** Array used to store the entries in the hashtable. */
-    public Object[] h;
+	/*@ public invariant \typeof(h) == \type(Object[]) ; @*/
 	
+	/*@ public invariant h.length == capacity ; @*/
+	
+    /** Array used to store the entries in the hashtable. */
+    public /*@ non_null @*/ Object[] h;
+	
+    /*@ public invariant size >= 0 && size <= capacity ; @*/
+    
     /** The size of the hashtable, i.e. amount of elements in the hashtable. */
     public int size; 
 	
+    /*@ public invariant capacity >= 1 ; @*/
+    
     /** The capacity of the hashtable, i.e. how many entries can be added to the hashtable. */
     public int capacity;
 		
@@ -22,6 +30,11 @@ public class HashTable {
      *
      * @param capacity the capacity of the hashtable
      */
+  /*@ public normal_behaviour
+    @ requires capacity >= 1 ;
+    @ ensures this.capacity == capacity && size == 0 ;
+    @ assignable \everything ;
+    @ */
     HashTable (int capacity) {
     }
 	
@@ -31,8 +44,17 @@ public class HashTable {
      * @param val the index in the hashtable before using the hash function
      * @return the appropriate index in the hashtable
      */
-    public int hash_function (int val) {
-        return 0;
+  /*@ public normal_behaviour
+    @ ensures \result >= 0 && \result < capacity ;
+    @ */    
+    public /*@ pure @*/ int hash_function (int val) {
+        int result = 0;
+
+        if (val >= 0)
+           result = val % capacity;
+        else {result = (val * -1) % capacity;}
+
+        return result;
     }
 	
     /**
@@ -41,6 +63,17 @@ public class HashTable {
      * @param u the object to be added in the hashtable
      * @param key the index where it should be added (before using the hash function)
      */
+  /*@ public normal_behaviour
+    @ requires size < capacity ;
+    @ ensures (\exists int i; i >= 0 && i < capacity; h[i] == u) ;
+    @ assignable size,h[*] ;
+    @
+    @ also
+    @
+    @ public normal_behaviour
+    @ requires size >= capacity ;
+    @ assignable \nothing ;
+    @ */    
     public void add (Object u, int key) {
     }
 
@@ -49,7 +82,18 @@ public class HashTable {
      *
      * @param u the object to delete from the hashtable
      */
-    // Removes an entry from the hashtable.
+  /*@ public normal_behaviour
+    @ requires contains(u,key) != -1 ;
+    @ ensures h[contains(u,key)] == null ;
+    @ ensures (\forall int j; j >= 0 && j < capacity && j != contains(u,key) ; h[j] == \old(h)[j]) ;
+    @ assignable size,h[*] ;
+    @
+    @ also
+    @
+    @ public normal_behaviour
+    @ requires contains(u,key) == -1 ;
+    @ assignable \nothing ;
+    @ */      
     public void delete (Object u, int key) {		
     }
     
@@ -59,10 +103,19 @@ public class HashTable {
      * Otherwise, it returns -1.
      *
      * @param u the object to search in the hashtable
-     * @param key the index where u should be placed (before using the hash function)
      * @return the actual index where u is placed
      */
-    public int contains (Object u, int key) {
+  /*@ public normal_behaviour
+    @ requires u != null && (\exists int i; i >= 0 && i < capacity; h[i] == u) ;
+    @ ensures \result >= 0 && \result < capacity ;
+    @
+    @ also 
+    @ 
+    @ public normal_behaviour
+    @ requires u != null && !(\exists int i; i >= 0 && i < capacity; h[i] == u) ;
+    @ ensures \result == -1 ;
+    @ */      
+    public /*@ pure @*/ int contains (Object u) {
        return 0;
     }
 	
@@ -72,7 +125,11 @@ public class HashTable {
      * @param idx the index of the hashtable
      * @return the object placed in idx (if any)
      */ 
-    public Object get (int idx) {
+  /*@ public normal_behaviour
+    @ requires idx >= 0 && idx < capacity ; 
+    @ ensures \result == h[idx] ;
+    @ */      
+    public /*@ pure @*/ Object get (int idx) {
         return null;	
     }	
 }
