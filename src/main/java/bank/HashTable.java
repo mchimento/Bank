@@ -83,15 +83,15 @@ public class HashTable {
      * @param u the object to delete from the hashtable
      */
   /*@ public normal_behaviour
-    @ requires contains(u,key) != -1 ;
-    @ ensures h[contains(u,key)] == null ;
-    @ ensures (\forall int j; j >= 0 && j < capacity && j != contains(u,key) ; h[j] == \old(h)[j]) ;
+    @ requires contains(u) != -1 ;
+    @ ensures h[contains(u)] == null ;
+    @ ensures (\forall int j; j >= 0 && j < capacity && j != contains(u) ; h[j] == \old(h)[j]) ;
     @ assignable size,h[*] ;
     @
     @ also
     @
     @ public normal_behaviour
-    @ requires contains(u,key) == -1 ;
+    @ requires contains(u) == -1 ;
     @ assignable \nothing ;
     @ */      
     public void delete (Object u, int key) {		
