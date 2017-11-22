@@ -49,7 +49,6 @@ public class HashTable {
      *
      * @param u the object to delete from the hashtable
      */
-    // Removes an entry from the hashtable.
     public void delete (Object u, int key) {		
     }
     
