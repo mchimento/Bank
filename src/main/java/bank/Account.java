@@ -59,6 +59,7 @@ public class Account {
       */
    /*@ public normal_behaviour
      @ requires money > 0 && balance - money >= 0 ;
+     @ ensures receiver.getBalance() == \old(receiver.getBalance()) + money ;
      @ ensures balance == \old(balance) - money ;
      @ assignable balance ;
      @
