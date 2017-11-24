@@ -19,9 +19,6 @@ public class HashTableTest {
         hash = new HashTable(3);
     }
 
-    @After
-    public void tearDown() { hash = new HashTable(3); }
-
     @Test
     public void test_constructor(){
         assertEquals(hash.size, 0);

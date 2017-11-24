@@ -18,9 +18,6 @@ public class UserTest {
         u = new User("checho", "Mauricio","Chimento",1) ;
     }
 
-    @After
-    public void tearDown() { u = new User("checho", "Mauricio","Chimento",1) ; }
-
     @Test
     public void test_getCategory(){
         assertTrue(u.getCategory() == Category.Type.Bronze);

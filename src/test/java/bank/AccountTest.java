@@ -18,9 +18,6 @@ public class AccountTest {
         a = new Account();
     }
 
-    @After
-    public void tearDown(){ a = new Account(); }
-
     @Test
     public void test_getID(){
         assertEquals(a.getId(), 1);
