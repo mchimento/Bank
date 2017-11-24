@@ -19,7 +19,10 @@ public class UserInterface {
      *
      * @return the user associated to the interface
      */
-    public User getUser() {
+  /*@ public normal_behaviour
+    @ ensures \result == u ;
+    @ */
+    public /*@ pure @*/ User getUser() {
       return null; 
     }
 
@@ -28,6 +31,11 @@ public class UserInterface {
      *
      * @param str the name of the interface
      */
+  /*@ public normal_behaviour
+    @ requires str != null ;
+    @ ensures name == str && u == null ;
+    @ assignable \everything ;
+    @ */
     UserInterface(String str){
     }	
 	
@@ -37,12 +45,34 @@ public class UserInterface {
      * @param userName the user name
      * @param password the password
      */
+  /*@ public normal_behaviour
+    @ requires u == null ;
+    @ ensures u != null ;
+    @ assignable u ;
+    @
+    @ also
+    @
+    @ public normal_behaviour
+    @ requires u != null ;
+    @ assignable \nothing ;
+    @ */
     public void login (String userName, int password) {
     }
 
     /**
      * Logs out a user from the system.
      */
+  /*@ public normal_behaviour
+    @ requires u != null ;
+    @ ensures u == null ;
+    @ assignable u ;
+    @
+    @ also
+    @
+    @ public normal_behaviour
+    @ requires u == null ;
+    @ assignable \nothing ;
+    @ */
     public void logout () {
     }
 
@@ -51,6 +81,17 @@ public class UserInterface {
      *
      * @param money the amount of money to deposit in the user's account
      */
+  /*@ public normal_behaviour
+    @ requires money > 0 ;
+    @ ensures u.getAccount().getBalance() == \old(u).getAccount().getBalance() + money ;
+    @ assignable u ;
+    @
+    @ also
+    @
+    @ public normal_behaviour
+    @ requires money <= 0 ;
+    @ assignable \nothing ;
+    @ */
     public void deposit(int money){
     }
 	
@@ -59,6 +100,17 @@ public class UserInterface {
      *
      * @param money the amount of money to withdraw from the user's account
      */
+  /*@ public normal_behaviour
+    @ requires money > 0 && (u.getAccount().getBalance() - money >= 0);
+    @ ensures u.getAccount().getBalance() == \old(u).getAccount().getBalance() - money ;
+    @ assignable u ;
+    @
+    @ also
+    @
+    @ public normal_behaviour
+    @ requires money <= 0 ;
+    @ assignable \nothing ;
+    @ */
     public void withdraw(int money){
     }
 }
