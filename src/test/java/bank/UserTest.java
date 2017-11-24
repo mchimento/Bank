@@ -18,6 +18,9 @@ public class UserTest {
         u = new User("checho", "Mauricio","Chimento",1) ;
     }
 
+    @After
+    public void tearDown() { u = new User("checho", "Mauricio","Chimento",1) ; }
+
     @Test
     public void test_getCategory(){
         assertTrue(u.getCategory() == Category.Type.Bronze);
@@ -31,13 +34,13 @@ public class UserTest {
 
     @Test
     public void test_getPassword() {
-        assertTrue(u.getPassword() == 1);
+        assertEquals(u.getPassword(), 1);
     }
 
     @Test
     public void test_setPassword() {
         u.setPassword(2);
-        assertTrue(u.getPassword() == 2);
+        assertEquals(u.getPassword(), 2);
     }
 
     @Test
@@ -83,6 +86,6 @@ public class UserTest {
         Account a = new Account();
         u.setAccount(a);
 
-        assertTrue(u.getAccount().getId() == a.getId());
+        assertEquals(u.getAccount().getId(), a.getId());
     }
 }
