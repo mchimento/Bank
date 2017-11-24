@@ -76,25 +76,35 @@ public class HashTable {
     @ */    
     public void add (Object u, int key) {
     }
-
-    /**
-     * Deletes entry <tt>u</tt> from the hashtable.
-     *
-     * @param u the object to delete from the hashtable
-     */
+	
+   /**
+    * Deletes entry at <tt>key</tt> from the hashtable.
+    *
+    * @param key removes the key (and its corresponding object) from the hashtable
+    * @return removed object
+    */
   /*@ public normal_behaviour
-    @ requires contains(u) != -1 ;
-    @ ensures h[contains(u)] == null ;
-    @ ensures (\forall int j; j >= 0 && j < capacity && j != contains(u) ; h[j] == \old(h)[j]) ;
+    @ requires key >= 0 && key < capacity ;
+    @ requires h[hash_function(key)] != null ;
+    @ ensures h[hash_function(key)] == null ;
+    @ ensures \result == h[hash_function(key)] ;
+    @ ensures (\forall int j; j >= 0 && j < capacity && j != hash_function(key) ; h[j] == \old(h)[j]) ;
     @ assignable size,h[*] ;
     @
     @ also
     @
     @ public normal_behaviour
-    @ requires contains(u) == -1 ;
+    @ requires key >= 0 && key < capacity ;
+    @ requires h[hash_function(key)] == null ;
+    @ assignable \nothing ;
+    @
+    @ also
+    @
+    @ public normal_behaviour
+    @ requires !(key >= 0 && key < capacity) ;
     @ assignable \nothing ;
     @ */      
-    public void delete (Object u, int key) {		
+    public void delete (int key) {		
     }
     
     // 
