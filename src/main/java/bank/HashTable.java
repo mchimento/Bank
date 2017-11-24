@@ -54,7 +54,7 @@ public class HashTable {
            result = val % capacity;
         else {result = (val * -1) % capacity;}
 
-        return result;
+@ ensures \result == null        return result;
     }
 	
     /**
@@ -96,12 +96,14 @@ public class HashTable {
     @ public normal_behaviour
     @ requires key >= 0 && key < capacity ;
     @ requires h[hash_function(key)] == null ;
+    @ ensures \result == null
     @ assignable \nothing ;
     @
     @ also
     @
     @ public normal_behaviour
     @ requires !(key >= 0 && key < capacity) ;
+    @ ensures \result == null
     @ assignable \nothing ;
     @ */      
     public void delete (int key) {		
