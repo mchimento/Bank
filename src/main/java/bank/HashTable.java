@@ -45,11 +45,12 @@ public class HashTable {
     }
 
     /**
-     * Deletes entry <tt>u</tt> from the hashtable.
+     * Deletes entry at <tt>key</tt> from the hashtable.
      *
-     * @param u the object to delete from the hashtable
+     * @param key removes the key (and its corresponding object) from the hashtable
+     * @return removed object
      */
-    public void delete (Object u, int key) {		
+    public void delete (int key) {		
     }
     
     // 
