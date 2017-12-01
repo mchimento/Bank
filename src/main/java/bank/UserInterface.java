@@ -82,14 +82,20 @@ public class UserInterface {
      * @param money the amount of money to deposit in the user's account
      */
   /*@ public normal_behaviour
-    @ requires money > 0 ;
+    @ requires money > 0 && u != null ;
     @ ensures u.getAccount().getBalance() == \old(u).getAccount().getBalance() + money ;
     @ assignable u ;
     @
     @ also
     @
     @ public normal_behaviour
-    @ requires money <= 0 ;
+    @ requires money <= 0 && u != null ;
+    @ assignable \nothing ;
+    @
+    @ also
+    @
+    @ public normal_behaviour
+    @ requires u == null ;
     @ assignable \nothing ;
     @ */	
     public void deposit(int money){
@@ -101,6 +107,7 @@ public class UserInterface {
      * @param money the amount of money to withdraw from the user's account
      */
   /*@ public normal_behaviour
+    @ requires u != null ;
     @ requires money > 0 && (u.getAccount().getBalance() - money >= 0);
     @ ensures u.getAccount().getBalance() == \old(u).getAccount().getBalance() - money ;
     @ assignable u ;
@@ -108,7 +115,13 @@ public class UserInterface {
     @ also
     @
     @ public normal_behaviour
-    @ requires money <= 0 ;
+    @ requires money <= 0 && u != null ;
+    @ assignable \nothing ;
+    @
+    @ also
+    @
+    @ public normal_behaviour
+    @ requires u == null ;
     @ assignable \nothing ;
     @ */	
     public void withdraw(int money){
