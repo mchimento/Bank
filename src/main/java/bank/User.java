@@ -39,7 +39,13 @@ public class User {
     @ ensures account == null && password == id && category == Category.Type.Bronze ;
     @ assignable \everything ;
     @ */      
-    User (String userName, String name, String surname, int id) {}
+    User (String userName, String name, String surname, int id) {
+        this.userName = userName;
+        this.name = name ;
+        this.surname = surname ;
+        password = id ;
+        category = Category.Type.Bronze ;
+    }
     
     /**
      * Sets the category of the user.
@@ -51,7 +57,7 @@ public class User {
     @ assignable category ;          
     @ */
     public void setCategory(Category.Type c){
-    	
+    	category = c ;
     }
     
     /**
@@ -63,7 +69,7 @@ public class User {
     @ ensures \result == category ;          
     @ */      
     public /*@ pure @*/ Category.Type getCategory(){
-    	return null;
+        return category;
     }
 
     /**
@@ -76,7 +82,7 @@ public class User {
     @ assignable password ;          
     @ */    
     public void setPassword (int pass) {
-
+        password = pass ;
     }
     
     /**
@@ -88,7 +94,7 @@ public class User {
     @ ensures \result == password ;          
     @ */      
     public /*@ pure @*/ int getPassword () {
-        return 0;
+        return password;
     }
 
     /**
@@ -100,7 +106,7 @@ public class User {
     @ ensures \result == userName ;          
     @ */          
     public /*@ pure @*/ String getUserName (){
-        return "";
+        return userName;
     }
     
     /**
@@ -113,7 +119,7 @@ public class User {
     @ assignable userName ;         
     @ */
     public void setUserName (String uname) {
-
+        userName = uname ;
     }
 
     /**
@@ -125,7 +131,7 @@ public class User {
     @ ensures \result == name ;          
     @ */          
     public /*@ pure @*/ String getName (){
-        return "";
+        return name ;
     }
 
     /**
@@ -138,7 +144,7 @@ public class User {
     @ assignable name ;          
     @ */    
     public void setName (String name) {
-
+        this.name = name ;
     }
     
     /**
@@ -150,7 +156,7 @@ public class User {
     @ ensures \result == surname ;          
     @ */          
     public String /*@ pure @*/ getSurname () {
-        return "";
+        return surname;
     }
 
     /**
@@ -163,7 +169,7 @@ public class User {
     @ assignable surname ;          
     @ */
     public void setSurname (String surname) {
-
+        this.surname = surname ;
     }
     
     /**
@@ -175,7 +181,7 @@ public class User {
     @ ensures \result == account ;          
     @ */      
     public Account /*@ pure @*/ getAccount() {
-         return null;
+        return account;
     }
     
     /**

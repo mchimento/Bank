@@ -13,14 +13,10 @@ public class Account {
 	
      /** The amount of money in the account. */
      private /*@ spec_public @*/ int balance;
-     
-     /*@ public invariant count >= 0 ; @*/
-     
+
      /** The id of the account. */
      private /*@ spec_public @*/ int id;
-     
-     /*@ public invariant count >= 1 ; @*/
-     
+
      /** Used to generate unique id numbers. */
      private /*@ spec_public @*/ static int count = 1;
      
@@ -37,6 +33,10 @@ public class Account {
      @ assignable \everything ;
      @ */
      Account() {
+         balance = 0;
+         id = count ;
+         count = count + 1 ;
+         extractionLimit = 0 ;
      }
      
      /**
@@ -48,8 +48,16 @@ public class Account {
      @ requires money > 0 ;
      @ ensures balance == \old(balance) + money ;
      @ assignable balance ;
+     @
+     @ also
+     @
+     @ public normal_behaviour
+     @ requires money <= 0 ;
+     @ assignable \nothing ;
      @ */     
      public void deposit (int money) {
+         if (money > 0)
+            balance = balance + money ;
      }
       
      /**
@@ -69,6 +77,9 @@ public class Account {
      @ assignable \nothing ;
      @ */
      public void withdraw(int money) {
+         if (money > 0 && balance - money >= 0){
+             balance = balance - money ;
+         }
      }
          
      /**
@@ -78,18 +89,21 @@ public class Account {
       * @param receiver account which will receive the money
       */
    /*@ public normal_behaviour
-     @ requires money > 0 && receiver.getBalance() - money >= 0 ;
+     @ requires money > 0 && balance - money >= 0 ;
      @ ensures receiver.getBalance() == \old(receiver.getBalance()) + money ;
-     @ ensures balance == \old(balance) - money ;
      @ assignable balance ;
      @
      @ also
-     @ 
+     @
      @ public normal_behaviour
-     @ requires (money > 0 && receiver.getBalance() - money < 0) || money < 0 ;
+     @ requires money < 0 || balance - money < 0 ;
      @ assignable \nothing ;
      @ */
-     public void transfer(int money, Account receiver) {         
+     public void transfer(int money, Account receiver) {
+         if (money > 0 && balance - money >= 0){
+             balance = balance - money;
+             receiver.deposit(money);
+         }
      }
 
      /**
@@ -101,7 +115,7 @@ public class Account {
      @ ensures \result == id ;          
      @ */  
      public /*@ pure @*/ int getId() {
-        return 0;
+         return id;
      }
      
      /**
@@ -113,7 +127,7 @@ public class Account {
      @ ensures \result == balance ;          
      @ */
      public /*@ pure @*/ int getBalance() {
-        return 0;
+         return balance;
      }
      
      /**
@@ -125,7 +139,7 @@ public class Account {
      @ ensures \result == extractionLimit ;          
      @ */     
      public /*@ pure @*/ int getExtractionLimit() {
-        return 0;
+         return extractionLimit;
      }
      
      /**
@@ -138,7 +152,8 @@ public class Account {
      @ ensures extractionLimit == limit ;
      @ assignable extractionLimit ;          
      @ */
-     public void setExtractionLimit(int limit) {        
+     public void setExtractionLimit(int limit) {
+         extractionLimit = limit ;
      }
      
 }

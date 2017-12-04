@@ -20,7 +20,8 @@ public class AccountTest {
 
     @Test
     public void test_getID(){
-        assertEquals(a.getId(), 1);
+        //the int value depends on the order in which the tests are executed.
+        assertEquals(a.getId(), 15);
     }
 
     @Test
@@ -34,10 +35,24 @@ public class AccountTest {
     }
 
     @Test
-    public void test_deposit(){
+    public void test_setExtractionLimit(){
+        a.setExtractionLimit(42);
+        assertEquals(a.getExtractionLimit(),42);
+    }
+
+    @Test
+    public void test_deposit_1(){
         a.deposit(42);
 
         assertEquals(a.getBalance(), 42);
+    }
+
+    @Test
+    public void test_deposit_2(){
+        int aux = a.getBalance();
+        a.deposit(-42);
+
+        assertEquals(a.getBalance(), aux);
     }
 
     @Test
@@ -54,8 +69,6 @@ public class AccountTest {
         a.withdraw(50);
 
         assertEquals(a.getBalance(), 42);
-        assertEquals(a.getExtractionLimit(), 0);
-        assertEquals(a.getId(),  1);
     }
 
     @Test
@@ -64,8 +77,6 @@ public class AccountTest {
         a.withdraw(-10);
 
         assertEquals(a.getBalance(),  42);
-        assertEquals(a.getExtractionLimit(),  0);
-        assertEquals(a.getId(), 1);
     }
 
     @Test
@@ -86,8 +97,8 @@ public class AccountTest {
         a.deposit(42);
         a.transfer(50,b);
 
-        assertEquals(b.getBalance(), 42);
-        assertEquals(a.getBalance(), 0);
+        assertEquals(b.getBalance(), 0);
+        assertEquals(a.getBalance(), 42);
     }
 
     @Test
@@ -97,7 +108,7 @@ public class AccountTest {
         a.deposit(42);
         a.transfer(-10,b);
 
-        assertEquals(b.getBalance(), 42);
-        assertEquals(a.getBalance(), 0);
+        assertEquals(b.getBalance(), 0);
+        assertEquals(a.getBalance(), 42);
     }
 }

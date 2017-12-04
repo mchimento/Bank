@@ -20,7 +20,7 @@ public class UserTest {
 
     @Test
     public void test_getCategory(){
-        assertTrue(u.getCategory() == Category.Type.Bronze);
+        assertEquals(u.getCategory(), Category.Type.Bronze);
     }
 
     @Test
@@ -64,12 +64,12 @@ public class UserTest {
 
     @Test
     public void test_getSurname() {
-        assertEquals(u.getSurname(),"Chimento");
+        assertEquals(u.getSurname(), "Chimento");
     }
 
     @Test
     public void test_setSurname() {
-        u.setUserName("Rios");
+        u.setSurname("Rios");
         assertEquals(u.getSurname(),"Rios");
     }
 

@@ -36,6 +36,9 @@ public class HashTable {
     @ assignable \everything ;
     @ */
     HashTable (int capacity) {
+        this.capacity = capacity ;
+        size = 0;
+        h = new Object[capacity];
     }
 	
     /**
@@ -143,6 +146,6 @@ public class HashTable {
     @ ensures \result == h[idx] ;
     @ */      
     public /*@ pure @*/ Object get (int idx) {
-        return null;	
+        return h[idx];
     }	
 }
