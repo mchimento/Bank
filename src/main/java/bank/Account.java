@@ -48,6 +48,12 @@ public class Account {
      @ requires money > 0 ;
      @ ensures balance == \old(balance) + money ;
      @ assignable balance ;
+     @
+     @ also
+     @
+     @ public normal_behaviour
+     @ requires money <= 0 ;
+     @ assignable \nothing ;     
      @ */     
      public void deposit (int money) {
      }
