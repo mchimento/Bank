@@ -85,14 +85,14 @@ public class Account {
       * @param receiver account which will receive the money
       */
    /*@ public normal_behaviour
-     @ requires money > 0 && receiver.getBalance() - money >= 0 ;
-     @ ensures receiver.getBalance() == \old(receiver.getBalance()) - money ;
+     @ requires money > 0 && balance - money >= 0 ;
+     @ ensures receiver.getBalance() == \old(receiver.getBalance()) + money ;
      @ assignable balance ;
      @
      @ also
      @ 
      @ public normal_behaviour
-     @ requires (money > 0 && receiver.getBalance() - money < 0) || money < 0 ;
+     @ requires money < 0 || balance - money < 0 ;
      @ assignable \nothing ;
      @ */
      public void transfer(int money, Account receiver) {         
