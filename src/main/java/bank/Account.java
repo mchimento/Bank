@@ -13,14 +13,10 @@ public class Account {
 	
      /** The amount of money in the account. */
      private /*@ spec_public @*/ int balance;
-     
-     /*@ public invariant count >= 0 ; @*/
-     
+          
      /** The id of the account. */
      private /*@ spec_public @*/ int id;
-     
-     /*@ public invariant count >= 1 ; @*/
-     
+          
      /** Used to generate unique id numbers. */
      private /*@ spec_public @*/ static int count = 1;
      
