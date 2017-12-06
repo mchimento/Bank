@@ -45,8 +45,15 @@ public class HashTable {
      * @return the appropriate index in the hashtable
      */
   /*@ public normal_behaviour
-    @ ensures \result >= 0 && \result < capacity ;
-    @ */    
+    @ requires val >= 0 ;
+    @ ensures \result == val % capacity;
+    @
+    @ also
+    @
+    @ public normal_behaviour
+    @ requires val < 0 ;
+    @ ensures \result == (val * -1) % capacity;
+    @ */   
     public /*@ pure @*/ int hash_function (int val) {
         int result = 0;
 
@@ -84,29 +91,30 @@ public class HashTable {
     * @return removed object
     */
   /*@ public normal_behaviour
-    @ requires key >= 0 && key < capacity ;
+    @ requires key >= 0 ;
     @ requires h[hash_function(key)] != null ;
-    @ ensures h[hash_function(key)] == null ;
-    @ ensures \result == h[hash_function(key)] ;
-    @ ensures (\forall int j; j >= 0 && j < capacity && j != hash_function(key) ; h[j] == \old(h)[j]) ;
+    @ requires size > 0 ;
+    @ ensures \result == \old(h[hash_function(key)]) ;
+    @ ensures h[hash_function(key)] == null && size == \old(size) - 1;
+    @ ensures (\forall int j; j >= 0 && j < capacity && j != hash_function(key) ; h[j] == \old(h[j])) ;
     @ assignable size,h[*] ;
     @
     @ also
     @
     @ public normal_behaviour
-    @ requires key >= 0 && key < capacity ;
+    @ requires key >= 0 ;
     @ requires h[hash_function(key)] == null ;
-    @ ensures \result == null
+    @ ensures \result == null ;
     @ assignable \nothing ;
     @
     @ also
     @
     @ public normal_behaviour
-    @ requires !(key >= 0 && key < capacity) ;
-    @ ensures \result == null
+    @ requires key < 0 ;
+    @ ensures \result == null ;
     @ assignable \nothing ;
-    @ */      
-    public void delete (int key) {		
+    @ */    
+    public /*@ nullable @*/ Object delete (int key) {		
     }
     
     // 
