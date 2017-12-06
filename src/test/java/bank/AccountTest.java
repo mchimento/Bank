@@ -21,7 +21,7 @@ public class AccountTest {
     @Test
     public void test_getID(){
         //the int value depends on the order in which the tests are executed.
-        assertEquals(a.getId(), 15);
+        assertEquals(a.getId(), 9);
     }
 
     @Test
@@ -77,38 +77,5 @@ public class AccountTest {
         a.withdraw(-10);
 
         assertEquals(a.getBalance(),  42);
-    }
-
-    @Test
-    public void test_transfer_1(){
-        Account b = new Account();
-
-        a.deposit(42);
-        a.transfer(12,b);
-
-        assertEquals(b.getBalance(), 12);
-        assertEquals(a.getBalance(), 30);
-    }
-
-    @Test
-    public void test_transfer_2(){
-        Account b = new Account();
-
-        a.deposit(42);
-        a.transfer(50,b);
-
-        assertEquals(b.getBalance(), 0);
-        assertEquals(a.getBalance(), 42);
-    }
-
-    @Test
-    public void test_transfer_3(){
-        Account b = new Account();
-
-        a.deposit(42);
-        a.transfer(-10,b);
-
-        assertEquals(b.getBalance(), 0);
-        assertEquals(a.getBalance(), 42);
     }
 }

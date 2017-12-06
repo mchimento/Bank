@@ -81,30 +81,6 @@ public class Account {
              balance = balance - money ;
          }
      }
-         
-     /**
-      * Transfers <tt>money</tt> to the account <tt>receiver</tt>.
-      *
-      * @param money amount of money to transfer from the current account
-      * @param receiver account which will receive the money
-      */
-   /*@ public normal_behaviour
-     @ requires money > 0 && balance - money >= 0 ;
-     @ ensures receiver.getBalance() == \old(receiver.getBalance()) + money ;
-     @ assignable balance ;
-     @
-     @ also
-     @
-     @ public normal_behaviour
-     @ requires money < 0 || balance - money < 0 ;
-     @ assignable \nothing ;
-     @ */
-     public void transfer(int money, Account receiver) {
-         if (money > 0 && balance - money >= 0){
-             balance = balance - money;
-             receiver.deposit(money);
-         }
-     }
 
      /**
       * Gets the id of the account.
@@ -155,5 +131,5 @@ public class Account {
      public void setExtractionLimit(int limit) {
          extractionLimit = limit ;
      }
-     
+
 }

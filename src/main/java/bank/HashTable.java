@@ -11,9 +11,11 @@ public class HashTable {
 	/*@ public invariant \typeof(h) == \type(Object[]) ; @*/
 	
 	/*@ public invariant h.length == capacity ; @*/
-	
+
+    /*@ public invariant h != null ; @*/
+
     /** Array used to store the entries in the hashtable. */
-    public /*@ non_null @*/ Object[] h;
+    public /*@ nullable @*/ Object[] h;
 	
     /*@ public invariant size >= 0 && size <= capacity ; @*/
     
@@ -32,7 +34,7 @@ public class HashTable {
      */
   /*@ public normal_behaviour
     @ requires capacity >= 1 ;
-    @ ensures this.capacity == capacity && size == 0 ;
+    @ ensures this.capacity == capacity && size == 0 && h != null ;
     @ assignable \everything ;
     @ */
     HashTable (int capacity) {
@@ -48,7 +50,14 @@ public class HashTable {
      * @return the appropriate index in the hashtable
      */
   /*@ public normal_behaviour
-    @ ensures \result >= 0 && \result < capacity ;
+    @ requires val >= 0 ;
+    @ ensures \result == val % capacity;
+    @
+    @ also
+    @
+    @ public normal_behaviour
+    @ requires val < 0 ;
+    @ ensures \result == (val * -1) % capacity;
     @ */    
     public /*@ pure @*/ int hash_function (int val) {
         int result = 0;
@@ -78,6 +87,37 @@ public class HashTable {
     @ assignable \nothing ;
     @ */    
     public void add (Object u, int key) {
+        if (size < capacity) {
+            int i = hash_function(key);
+
+            if (h[i] == null) {
+                h[i] = u;
+                size++;
+                return;
+            }
+            else {
+                int j = 0;
+            //TODO: replace < with <= in the while to introduce a bug
+            //spotted by deductive verification
+            /*@ loop_invariant j >= 0 && j <= capacity && i >= 0 && i < capacity;
+		      @ assignable j,i;
+		      @ decreases capacity - j;
+		      @*/
+                while (h[i] != null && j < capacity) {
+                    if (i == capacity-1)
+                        i = 0;
+                    else {
+                        i++;
+                    }
+                    j++;
+                }
+                h[i] = u;
+                size++;
+                return;
+            }
+        } else {
+            return;
+        }
     }
 
     /**
@@ -87,17 +127,18 @@ public class HashTable {
      * @return removed object
      */
   /*@ public normal_behaviour
-    @ requires key >= 0 && key < capacity ;
+    @ requires key >= 0 ;
     @ requires h[hash_function(key)] != null ;
-    @ ensures h[hash_function(key)] == null ;
-    @ ensures \result == h[hash_function(key)] ;
-    @ ensures (\forall int j; j >= 0 && j < capacity && j != hash_function(key) ; h[j] == \old(h)[j]) ;
+    @ requires size > 0 ;
+    @ ensures \result == \old(h[hash_function(key)]) ;
+    @ ensures h[hash_function(key)] == null && size == \old(size) - 1;
+    @ ensures (\forall int j; j >= 0 && j < capacity && j != hash_function(key) ; h[j] == \old(h[j])) ;
     @ assignable size,h[*] ;
     @
     @ also
     @
     @ public normal_behaviour
-    @ requires key >= 0 && key < capacity ;
+    @ requires key >= 0 ;
     @ requires h[hash_function(key)] == null ;
     @ ensures \result == null ;
     @ assignable \nothing ;
@@ -105,12 +146,27 @@ public class HashTable {
     @ also
     @
     @ public normal_behaviour
-    @ requires !(key >= 0 && key < capacity) ;
+    @ requires key < 0 ;
     @ ensures \result == null ;
     @ assignable \nothing ;
     @ */      
-    public Object delete (int key) {
-        return null ;
+    public /*@ nullable @*/ Object delete (int key) {
+        if (key >= 0) {
+            //TODO: remove the line below and replace i by key, to introduce a bug
+            //spotted by deductive verification
+            int i = hash_function(key);
+
+            if (h[i] == null)
+                return null;
+            else {
+                Object ret = h[i] ;
+                h[i] = null ;
+                size = size - 1;
+                return ret;
+            }
+        } else {
+            return null;
+        }
     }
     
     // 
@@ -123,7 +179,7 @@ public class HashTable {
      */
   /*@ public normal_behaviour
     @ requires u != null && (\exists int i; i >= 0 && i < capacity; h[i] == u) ;
-    @ ensures \result >= 0 && \result < capacity ;
+    @ ensures \result >= 0 && \result < capacity && h[\result] == u;
     @
     @ also 
     @ 
@@ -132,7 +188,23 @@ public class HashTable {
     @ ensures \result == -1 ;
     @ */      
     public /*@ pure @*/ int contains (Object u) {
-       return 0;
+        int ret = -1;
+        int i = 0 ;
+
+      /*@ loop_invariant i >= 0 && i <= capacity && ret >= -1 && ret < capacity;
+	    @ assignable i,ret;
+	    @ decreases capacity - i;
+        @*/
+        while (i < capacity) {
+            if (h[i] != null && h[i] == u) {
+                ret = i;
+                i = capacity;
+            } else {
+                i++;
+            }
+        }
+
+        return ret;
     }
 	
     /**

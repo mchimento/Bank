@@ -54,7 +54,6 @@ public class HashTableTest {
 
         assertArrayEquals(hash.h,aux.h);
         assertEquals(hash.size, aux.size);
-        assertEquals(hash.capacity, aux.capacity);
     }
 
     @Test
@@ -90,12 +89,12 @@ public class HashTableTest {
 
     @Test
     public void test_delete_2(){
-        assertNull(hash.delete(0));
+        assertNull(hash.delete(-1));
     }
 
     @Test
     public void test_delete_3(){
-        assertNull(hash.delete(4));
+        assertNull(hash.delete(1));
     }
 
 
