@@ -50,7 +50,7 @@ public class HashTable {
      * @param key removes the key (and its corresponding object) from the hashtable
      * @return removed object
      */
-    public void delete (int key) {		
+    public Object delete (int key) {		
     }
     
     // 
