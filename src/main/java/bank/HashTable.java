@@ -178,27 +178,20 @@ public class HashTable {
      * @return the actual index where u is placed
      */
   /*@ public normal_behaviour
-    @ requires u != null && (\exists int i; i >= 0 && i < capacity; h[i] == u) ;
-    @ ensures \result >= 0 && \result < capacity && h[\result] == u;
-    @
-    @ also 
-    @ 
-    @ public normal_behaviour
-    @ requires u != null && !(\exists int i; i >= 0 && i < capacity; h[i] == u) ;
-    @ ensures \result == -1 ;
-    @ */      
+    @ requires u != null ;
+    @ ensures \result >= -1 && \result < capacity && (u.equals(h[\result]) || \result == -1) ;
+    @ */
     public /*@ pure @*/ int contains (Object u) {
         int ret = -1;
         int i = 0 ;
 
-      /*@ loop_invariant i >= 0 && i <= capacity && ret >= -1 && ret < capacity;
-	    @ assignable i,ret;
+      /*@ loop_invariant i >= 0 && i <= capacity ;
+	    @ assignable i;
 	    @ decreases capacity - i;
         @*/
         while (i < capacity) {
-            if (h[i] != null && h[i] == u) {
-                ret = i;
-                i = capacity;
+            if (h[i] != null && u.equals(h[i])) {
+                return i ;
             } else {
                 i++;
             }
