@@ -81,7 +81,27 @@ public class UserInterface {
      */
     public void withdraw(int money){
         if (u != null && money > 0){
-            u.getAccount().withdraw(money);
+            if (categoryLimit(money))
+                u.getAccount().withdraw(money);
         }
+    }
+
+    public boolean categoryLimit(int money){
+        boolean ret = false ;
+
+        switch (u.getCategory()){
+            case Bronze:
+                ret = money <= 5000;
+                break;
+            case Silver:
+                ret = money <= 20000;
+                break;
+            case Gold:
+                ret = true;
+                break;
+            default:
+                break;
+        }
+        return ret;
     }
 }
