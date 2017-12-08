@@ -97,13 +97,11 @@ public class HashTable {
             }
             else {
                 int j = 0;
-            //TODO: replace < with <= in the while to introduce a bug
-            //spotted by deductive verification
             /*@ loop_invariant j >= 0 && j <= capacity && i >= 0 && i < capacity;
 		      @ assignable j,i;
 		      @ decreases capacity - j;
 		      @*/
-                while (h[i] != null && j < capacity) {
+                while (h[i] != null && j <= capacity) {
                     if (i == capacity-1)
                         i = 0;
                     else {
@@ -152,15 +150,11 @@ public class HashTable {
     @ */      
     public /*@ nullable @*/ Object delete (int key) {
         if (key >= 0) {
-            //TODO: remove the line below and replace i by key, to introduce a bug
-            //spotted by deductive verification
-            int i = hash_function(key);
-
-            if (h[i] == null)
+            if (h[key] == null)
                 return null;
             else {
-                Object ret = h[i] ;
-                h[i] = null ;
+                Object ret = h[key] ;
+                h[key] = null ;
                 size = size - 1;
                 return ret;
             }
@@ -184,8 +178,6 @@ public class HashTable {
     public /*@ pure @*/ int contains (Object u) {
         int i = 0 ;
 
-        //TODO: Missing information to prove loop invariant. Generate a test case for that
-        // scenario and continue with the development process.
       /*@ loop_invariant i >= 0 && i <= capacity ;
 	    @ assignable i;
 	    @ decreases capacity - i;
