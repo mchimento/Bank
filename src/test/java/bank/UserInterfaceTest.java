@@ -3,6 +3,7 @@
  */
 package bank;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,6 +21,11 @@ public class UserInterfaceTest {
     @Before
     public void setUp(){
         f = new UserInterface("ohwee") ;
+    }
+
+    @After
+    public void reset() {
+        SystemCentral.flush();
     }
 
     @Test

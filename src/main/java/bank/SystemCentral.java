@@ -13,5 +13,10 @@ public class SystemCentral {
 	
     /** The set of logged users. */
     public static HashTable users = new HashTable (MAX_USERS_AMOUNT);
+
+    //Added for testing purposes.
+    public static void flush() {
+        users = new HashTable (MAX_USERS_AMOUNT);
+    }
     
 }

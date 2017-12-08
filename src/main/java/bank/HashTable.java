@@ -182,22 +182,21 @@ public class HashTable {
     @ ensures \result >= -1 && \result < capacity && (u.equals(h[\result]) || \result == -1) ;
     @ */
     public /*@ pure @*/ int contains (Object u) {
-        int ret = -1;
         int i = 0 ;
 
+        //TODO: Missing information to prove loop invariant. Generate a test case for that
+        // scenario and continue with the development process.
       /*@ loop_invariant i >= 0 && i <= capacity ;
 	    @ assignable i;
 	    @ decreases capacity - i;
         @*/
         while (i < capacity) {
-            if (h[i] != null && u.equals(h[i])) {
+            if (h[i] != null && u.equals(h[i]))
                 return i ;
-            } else {
-                i++;
-            }
+            i++;
         }
 
-        return ret;
+        return -1;
     }
 	
     /**
