@@ -20,16 +20,16 @@ public class Account {
      /** Used to generate unique id numbers. */
      private /*@ spec_public @*/ static int count = 1;
      
-     /*@ public invariant extractionLimit >= 0 ; @*/
+     /*@ public invariant amountExtracted >= 0 ; @*/
      
-     /** The extraction limit of the account. 0 means no limit on the extraction. */
-     private /*@ spec_public @*/ int extractionLimit ;
+     /** Amount of money extracted during the week. */
+     private /*@ spec_public @*/ int amountExtracted ;
      
      /**
       * Instantiates a new account.
       */
    /*@ public normal_behaviour
-     @ ensures balance == 0 && id == \old(count) && extractionLimit == 0 && count == \old(count) + 1;
+     @ ensures balance == 0 && id == \old(count) && amountExtracted == 0 && count == \old(count) + 1;
      @ assignable \everything ;
      @ */
      Account() {
@@ -119,28 +119,28 @@ public class Account {
      }
      
      /**
-      * Gets the extraction limit of the account.
+      * Gets the amount of money extracted during the week.
       *
       * @return the extraction limit of the account
       */
    /*@ public normal_behaviour
-     @ ensures \result == extractionLimit ;          
+     @ ensures \result == amountExtracted ;          
      @ */     
-     public /*@ pure @*/ int getExtractionLimit() {
+     public /*@ pure @*/ int getAmountExtracted() {
         return 0;
      }
      
      /**
-      * Sets the extraction limit of the account.
+      * Sets the amount of money extracted during the week.
       *
       * @param limit new extraction limit 
       */
    /*@ public normal_behaviour
      @ requires limit >= 0 ;
-     @ ensures extractionLimit == limit ;
-     @ assignable extractionLimit ;          
+     @ ensures amountExtracted == limit ;
+     @ assignable amountExtracted ;          
      @ */
-     public void setExtractionLimit(int limit) {        
+     public void setAmountExtracted(int limit) {        
      }
      
 }
