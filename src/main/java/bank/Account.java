@@ -17,9 +17,9 @@ public class Account {
      
      /** Used to generate unique id numbers. */
      private static int count = 1;
-     
-     /** The extraction limit of the account. 0 means no limit on the extraction. */
-     private int extractionLimit ;
+               
+     /** Amount of money extracted during the week. */
+     private int amountExtracted ;
      
      /**
       * Instantiates a new account.
@@ -71,11 +71,11 @@ public class Account {
      }
      
      /**
-      * Gets the extraction limit of the account.
+      * Gets the amount of money extracted during the week.
       *
       * @return the extraction limit of the account
       */
-     public int getExtractionLimit() {
+     public int getAmountExtracted() {
         return 0;
      }
      
@@ -84,7 +84,7 @@ public class Account {
       *
       * @param limit new extraction limit 
       */
-     public void setExtractionLimit(int limit) {        
+     public void setAmountExtracted(int limit) {        
      }
      
 }
