@@ -91,10 +91,10 @@ public class UserInterface {
 
         switch (u.getCategory()){
             case Bronze:
-                ret = money <= 5000;
+                ret = u.getAccount().getAmountExtracted() + money <= 5000;
                 break;
             case Silver:
-                ret = money <= 20000;
+                ret = u.getAccount().getAmountExtracted() + money <= 20000;
                 break;
             case Gold:
                 ret = true;

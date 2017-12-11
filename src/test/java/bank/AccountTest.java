@@ -31,13 +31,13 @@ public class AccountTest {
 
     @Test
     public void test_getExtractionLimit(){
-        assertEquals(a.getExtractionLimit(), 0);
+        assertEquals(a.getAmountExtracted(), 0);
     }
 
     @Test
     public void test_setExtractionLimit(){
-        a.setExtractionLimit(42);
-        assertEquals(a.getExtractionLimit(),42);
+        a.setAmountExtracted(42);
+        assertEquals(a.getAmountExtracted(),42);
     }
 
     @Test
