@@ -45,7 +45,8 @@ public class UserInterface {
             User user = DataBase.search(userName, password);
 
             if (user != null) {
-                if ((SystemCentral.users.contains(user) < 0)) {
+                if ((SystemCentral.users.contains(user) < 0
+                        && SystemCentral.users.size < SystemCentral.users.capacity)) {
                     SystemCentral.users.add(user, password);
                     u = user;
                 }
