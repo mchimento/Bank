@@ -57,6 +57,13 @@ public class UserInterface {
     /**
      * Logs out a user from the system.
      */
+  /*@ public normal_behaviour
+    @ requires u != null && SystemCentral.users != null ;
+    @ requires \invariant_for(u) && \invariant_for(SystemCentral.users) ;
+    @ requires SystemCentral.users.h != null ;
+    @ ensures u == null ;
+    @ assignable u, SystemCentral.users.h[*] ;
+    @*/
     public void logout () {
         if (u != null) {
             SystemCentral.users.delete(u.getPassword());

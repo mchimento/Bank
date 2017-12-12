@@ -97,11 +97,13 @@ public class HashTable {
             }
             else {
                 int j = 0;
+            //TODO: Bug found using deductive verification (cannot close the check of the body of the loop invariant)
+            // in the while condition, it should be j < capacity instead of j <= capacity
             /*@ loop_invariant j >= 0 && j <= capacity && i >= 0 && i < capacity;
 		      @ assignable j,i;
 		      @ decreases capacity - j;
 		      @*/
-                while (h[i] != null && j <= capacity) {
+                while (h[i] != null && j < capacity) {
                     if (i == capacity-1)
                         i = 0;
                     else {
@@ -149,12 +151,16 @@ public class HashTable {
     @ assignable \nothing ;
     @ */      
     public /*@ nullable @*/ Object delete (int key) {
+        //TODO: Bug found using symbolic execution to automatically generate test cases.
+        //Method delete is not using the hash function to compute the right index.
         if (key >= 0) {
-            if (h[key] == null)
+            int i = hash_function(key);
+
+            if (h[i] == null)
                 return null;
             else {
-                Object ret = h[key] ;
-                h[key] = null ;
+                Object ret = h[i] ;
+                h[i] = null ;
                 size = size - 1;
                 return ret;
             }
@@ -178,6 +184,8 @@ public class HashTable {
     public /*@ pure @*/ int contains (Object u) {
         int i = 0 ;
 
+        //TODO: Cannot prove that body preserves the invariants, but no counter-examples.
+        //Generate test cases to accomplish high coverage.
       /*@ loop_invariant i >= 0 && i <= capacity ;
 	    @ assignable i;
 	    @ decreases capacity - i;
