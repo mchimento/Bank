@@ -20,7 +20,7 @@ public class UserInterface {
      * @return the user associated to the interface
      */
     public User getUser() {
-      return u;
+	    return null ;
     }
 
     /**
@@ -29,8 +29,6 @@ public class UserInterface {
      * @param str the name of the interface
      */
     UserInterface(String str){
-        name = str;
-        u = null;
     }	
 	
     /**
@@ -40,28 +38,12 @@ public class UserInterface {
      * @param password the password
      */
     public void login (String userName, int password) {
-        if (u == null) {
-            //Gets the user data from the database
-            User user = DataBase.search(userName, password);
-
-            if (user != null) {
-                if ((SystemCentral.users.contains(user) < 0
-                        && SystemCentral.users.size < SystemCentral.users.capacity)) {
-                    SystemCentral.users.add(user, password);
-                    u = user;
-                }
-            }
-        }
     }
 
     /**
      * Logs out a user from the system.
      */
     public void logout () {
-        if (u != null) {
-            SystemCentral.users.delete(u.getPassword());
-            u = null;
-        }
     }
 
     /**
@@ -70,9 +52,6 @@ public class UserInterface {
      * @param money the amount of money to deposit in the user's account
      */
     public void deposit(int money){
-        if (u != null && money > 0){
-            u.getAccount().deposit(money);
-        }
     }
 	
     /**
@@ -81,28 +60,5 @@ public class UserInterface {
      * @param money the amount of money to withdraw from the user's account
      */
     public void withdraw(int money){
-        if (u != null && money > 0){
-            if (categoryLimit(money))
-                u.getAccount().withdraw(money);
-        }
-    }
-
-    public boolean categoryLimit(int money){
-        boolean ret = false ;
-
-        switch (u.getCategory()){
-            case Bronze:
-                ret = u.getAccount().getAmountExtracted() + money <= 5000;
-                break;
-            case Silver:
-                ret = u.getAccount().getAmountExtracted() + money <= 20000;
-                break;
-            case Gold:
-                ret = true;
-                break;
-            default:
-                break;
-        }
-        return ret;
     }
 }
