@@ -33,6 +33,7 @@ public class BankModel implements FsmModel {
     @Action
     public void login() {
         state = State.Login;
+        adapter.login(f);
     }
 
     public boolean logoutGuard() {
@@ -42,6 +43,7 @@ public class BankModel implements FsmModel {
     @Action
     public void logout() {
         state = State.Logout;
+        adapter.logout(f);
     }
 
     public boolean depositGuard(){
@@ -50,6 +52,7 @@ public class BankModel implements FsmModel {
 
     @Action
     public void deposit() {
+        adapter.deposit(f);
     }
 
     public boolean withdrawGuard() {
@@ -58,6 +61,6 @@ public class BankModel implements FsmModel {
 
     @Action
     public void withdraw() {
-
+        adapter.withdraw(f);
     }
 }

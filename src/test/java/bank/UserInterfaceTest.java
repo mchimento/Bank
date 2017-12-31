@@ -20,7 +20,7 @@ public class UserInterfaceTest {
 
     @Before
     public void setUp(){
-        f = new UserInterface("ohwee") ;
+        f = new UserInterface("test") ;
     }
 
     @After
