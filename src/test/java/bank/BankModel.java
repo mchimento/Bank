@@ -3,15 +3,15 @@
  */
 package bank;
 
-import junit.framework.Assert;
 import nz.ac.waikato.modeljunit.Action;
 import nz.ac.waikato.modeljunit.FsmModel;
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 public class BankModel implements FsmModel {
 
     private BankAdapter adapter = new BankAdapter();
-    private UserInterface f = new UserInterface("test");
-
     private enum State {Login, Logout}
 
     private State state = State.Logout;
@@ -22,28 +22,30 @@ public class BankModel implements FsmModel {
 
     public void reset(boolean b) {
         state = State.Logout;
-        f = new UserInterface("test");
         adapter = new BankAdapter();
+        SystemCentral.flush();
     }
 
     public boolean loginGuard(){
-        return state == State.Logout && f.getUser() == null ;
+        return state == State.Logout && adapter.f.getUser() == null ;
     }
 
     @Action
     public void login() {
         state = State.Login;
-        adapter.login(f);
+        adapter.login();
+        assertNotNull(adapter.f.getUser());
     }
 
     public boolean logoutGuard() {
-        return state == State.Login && f.getUser() != null ;
+        return state == State.Login && adapter.f.getUser() != null ;
     }
 
     @Action
     public void logout() {
         state = State.Logout;
-        adapter.logout(f);
+        adapter.logout();
+        assertNull(adapter.f.getUser());
     }
 
     public boolean depositGuard(){
@@ -52,7 +54,7 @@ public class BankModel implements FsmModel {
 
     @Action
     public void deposit() {
-        adapter.deposit(f);
+        adapter.deposit();
     }
 
     public boolean withdrawGuard() {
@@ -61,6 +63,6 @@ public class BankModel implements FsmModel {
 
     @Action
     public void withdraw() {
-        adapter.withdraw(f);
+        adapter.withdraw();
     }
 }

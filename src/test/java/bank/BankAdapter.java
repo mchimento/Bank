@@ -5,19 +5,21 @@ package bank;
 
 public class BankAdapter {
 
-    public void login(UserInterface f){
+    public UserInterface f = new UserInterface("test");
 
+    public void login(){
+        f.login("checho",1);
     }
 
-    public void logout(UserInterface f){
-
+    public void logout(){
+        f.logout();
     }
 
-    public void deposit(UserInterface f){
-
+    public void deposit(){
+        f.deposit(20);
     }
 
-    public void withdraw(UserInterface f){
-
+    public void withdraw(){
+        f.withdraw(10);
     }
 }

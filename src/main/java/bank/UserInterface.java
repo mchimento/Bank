@@ -59,6 +59,8 @@ public class UserInterface {
      */
     public void logout () {
         if (u != null) {
+            //TODO: Bug here, it should be removed de de index of the user,
+            // i.e. SystemCentral.users.delete(SystemCentral.users.contains(u))
             SystemCentral.users.delete(u.getPassword());
             u = null;
         }

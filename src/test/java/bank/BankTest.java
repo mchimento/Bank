@@ -26,7 +26,7 @@ public class BankTest {
         tester.addCoverageMetric(new StateCoverage());
         tester.addCoverageMetric(new ActionCoverage());
 
-        tester.generate(50);
+        tester.generate(10);
         tester.printCoverage();
     }
 
