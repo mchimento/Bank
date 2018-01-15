@@ -140,7 +140,7 @@ public class UserInterfaceTest {
         f.login("checho",1);
 
         int amount = f.getUser().getAccount().getBalance();
-        f.deposit(-20);
+        f.withdraw(-20);
 
         int new_amount = f.getUser().getAccount().getBalance();
         assertEquals(amount , new_amount);

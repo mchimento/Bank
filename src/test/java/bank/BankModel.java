@@ -27,7 +27,7 @@ public class BankModel implements FsmModel {
     }
 
     public boolean loginGuard(){
-        return state == State.Logout && adapter.f.getUser() == null ;
+        return state == State.Logout ;
     }
 
     @Action
@@ -38,7 +38,7 @@ public class BankModel implements FsmModel {
     }
 
     public boolean logoutGuard() {
-        return state == State.Login && adapter.f.getUser() != null ;
+        return state == State.Login ;
     }
 
     @Action
