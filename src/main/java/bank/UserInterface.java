@@ -92,10 +92,10 @@ public class UserInterface {
                 if (categoryLimit(money))
                     u.getAccount().withdraw(money);
                 else {
-                    System.out.printf("\nAmount requested exceeds the weekly limit of the user.");
+                    System.out.printf("\nAmount requested exceeds the weekly limit of the user.\n");
                 }
             } else {
-                System.out.printf("\nNot enough money into the account to perform the operation.");
+                System.out.printf("\nNot enough money into the account to perform the operation.\n");
             }
         }
     }
