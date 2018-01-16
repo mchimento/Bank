@@ -49,7 +49,12 @@ public class UserInterface {
                         && SystemCentral.users.size < SystemCentral.users.capacity)) {
                     SystemCentral.users.add(user, password);
                     u = user;
+                    System.out.printf("Welcome " + u.getName() + " " + u.getSurname() + "!\n");
+                } else {
+                    System.out.printf("Login failure " + u.getName() + " " + u.getSurname() + ".\n");
                 }
+            } else {
+                System.out.printf("Wrong user name or password.\n");
             }
         }
     }
@@ -61,6 +66,7 @@ public class UserInterface {
         if (u != null) {
             SystemCentral.users.delete(SystemCentral.users.contains(u));
             u = null;
+            System.out.printf("Have a good day.\n");
         }
     }
 
@@ -82,8 +88,15 @@ public class UserInterface {
      */
     public void withdraw(int money){
         if (u != null && money > 0){
-            if (categoryLimit(money))
-                u.getAccount().withdraw(money);
+            if (u.getAccount().getBalance() - money >= 0) {
+                if (categoryLimit(money))
+                    u.getAccount().withdraw(money);
+                else {
+                    System.out.printf("\nAmount requested exceeds the weekly limit of the user.");
+                }
+            } else {
+                System.out.printf("\nNot enough money into the account to perform the operation.");
+            }
         }
     }
 
