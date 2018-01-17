@@ -41,6 +41,12 @@ idle_dep -> bad [deposit_ex \ false ]
 login -> idle_with [withdraw_en]
 idle_with -> login [withdraw_ex]
 idle_with -> bad [withdraw_ex \ false ]
+
+logout -> bad [logout_en]
+logout -> bad [withdraw_en]
+logout -> bad [deposit_en]
+login -> bad [login_en]
+
 }
 
 } %%end prop_deposit

@@ -69,7 +69,6 @@ public class Main {
                        break;
                    case "logout":
                        f.logout();
-                       exit = 1;
                        break;
                    default: System.out.println("Wrong action.");
                        break;

@@ -102,6 +102,21 @@ else if (_state_id_prop_deposit==6){
 		_state_id_prop_deposit = 2;//moving to state idle_lin
 		_goto_prop_deposit(_info);
 		}
+		else if ((_occurredEvent(_event,4/*logout_en*/))){
+		
+		_state_id_prop_deposit = 0;//moving to state bad
+		_goto_prop_deposit(_info);
+		}
+		else if ((_occurredEvent(_event,12/*withdraw_en*/))){
+		
+		_state_id_prop_deposit = 0;//moving to state bad
+		_goto_prop_deposit(_info);
+		}
+		else if ((_occurredEvent(_event,8/*deposit_en*/))){
+		
+		_state_id_prop_deposit = 0;//moving to state bad
+		_goto_prop_deposit(_info);
+		}
 }
 else if (_state_id_prop_deposit==3){
 		if (1==0){}
@@ -170,6 +185,11 @@ else if (_state_id_prop_deposit==1){
 		else if ((_occurredEvent(_event,12/*withdraw_en*/))){
 		
 		_state_id_prop_deposit = 5;//moving to state idle_with
+		_goto_prop_deposit(_info);
+		}
+		else if ((_occurredEvent(_event,0/*login_en*/))){
+		
+		_state_id_prop_deposit = 0;//moving to state bad
 		_goto_prop_deposit(_info);
 		}
 }
