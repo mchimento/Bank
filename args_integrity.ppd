@@ -4,11 +4,14 @@ import bank.UserInterface;
 
 GLOBAL {
 
+VARIABLES { int aux ;}
+
 TRIGGERS {
 deposit_en(int money) = {UserInterface f.deposit(money)entry}
 deposit_ex(int money) = {UserInterface f.deposit(money)exit()}
 withdraw_en(int money) = {UserInterface f.withdraw(money)entry}
 withdraw_ex(int money) = {UserInterface f.withdraw(money)exit()}
+logout_en() = {UserInterface f.logout()entry}
 }
 
 PROPERTY prop_args_integrity {
@@ -16,27 +19,22 @@ PROPERTY prop_args_integrity {
 STATES
 {
 STARTING { init ; }
+ACCEPTING { end ; }
+BAD { bad ; }
+NORMAL { idle ; }
 }
 
 TRANSITIONS
 {
-init -> init [withdraw_en \ money > 0 \ ]
-init -> init [deposit_en \ money > 0 \ ]
+init -> end [logout_en]
+init -> idle [withdraw_en \ money > 0 \ ]
+idle -> init [withdraw_ex \ money > 0 \ ]
+
+init -> idle [deposit_en \ money > 0 \ ]
+
 }
 
 } %%end prop_deposit
 
 } %%end GLOBAL
 
-TEMPLATES {
-  TEMPLATE args_integrity (UserInterface ff, Trigger tr) {
-     PROPERTY args_integrity_check {
-       STATES {
-         STARTING { init ; }
-       }
-       TRANSITIONS {
-         init -> init [trigger ]
-       }
-     } %%end args_integrity_check 
-  } %%end args_integrity
-} %%end TEMPLATES
