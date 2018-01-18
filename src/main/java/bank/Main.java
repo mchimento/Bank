@@ -60,7 +60,8 @@ public class Main {
                        System.out.print("Enter the amount of money to withdraw: ");
                        amount = in.next();
                        aux = Integer.parseInt(amount);
-                       f.deposit(aux);
+                       //TODO: Copy and paste error found when validating the model
+                       f.withdraw(aux);
                        break;
                    case "balance":
                        System.out.printf("\nYour balance is %d.\n", f.getUser().getAccount().getBalance());
