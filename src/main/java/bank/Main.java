@@ -62,7 +62,7 @@ public class Main {
                        System.out.print("Enter the amount of money to withdraw: ");
                        amount = in.next();
                        aux = Integer.parseInt(amount);
-                       //TODO: Copy and paste error found when analysing data passing integrity
+                       //TODO: Copy and paste error found when validating the model
                        f.withdraw(aux);
                        break;
                    case "balance":
