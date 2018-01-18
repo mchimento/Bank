@@ -1,17 +1,21 @@
 IMPORTS {
 import bank.UserInterface;
+import bank.Account;
 }
 
 GLOBAL {
 
-VARIABLES { int aux ;}
+VARIABLES { 
+ int aux = -1 ; 
+}
+
+ACTEVENTS { ch }
 
 TRIGGERS {
 deposit_en(int money) = {UserInterface f.deposit(money)entry}
 deposit_ex(int money) = {UserInterface f.deposit(money)exit()}
 withdraw_en(int money) = {UserInterface f.withdraw(money)entry}
 withdraw_ex(int money) = {UserInterface f.withdraw(money)exit()}
-logout_en() = {UserInterface f.logout()entry}
 }
 
 PROPERTY prop_args_integrity {
@@ -19,22 +23,43 @@ PROPERTY prop_args_integrity {
 STATES
 {
 STARTING { init ; }
-ACCEPTING { end ; }
 BAD { bad ; }
 NORMAL { idle ; }
 }
 
 TRANSITIONS
 {
-init -> end [logout_en]
-init -> idle [withdraw_en \ money > 0 \ ]
-idle -> init [withdraw_ex \ money > 0 \ ]
-
-init -> idle [deposit_en \ money > 0 \ ]
-
+init -> idle [withdraw_en \ money > 0 \ aux = money ; \create(args_integrity, f.getUser().getAccount() ,withdraw) ; ]
+init -> idle [deposit_en \ money > 0 \ aux = money ; \create(args_integrity, f.getUser().getAccount() ,deposit) ; ]
+idle -> init [ch?]
+idle -> init [ch?] 
+idle -> bad [withdraw_ex]
+idle -> bad [deposit_ex]
 }
 
 } %%end prop_deposit
 
 } %%end GLOBAL
 
+TEMPLATES {
+
+TEMPLATE args_integrity (Account acc, MethodName m) {
+
+  TRIGGERS { m_en(int money) = { acc.m(money)entry } }
+  
+  PROPERTY check_args_integrity {
+   STATES {
+    STARTING { idle ; }
+    ACCEPTING { ok ; }
+    BAD { bad ; }
+   }
+
+   TRANSITIONS {
+     idle -> ok [ m_en \ money == aux \ aux = -1 ; \gen(ch) ; ]
+     idle -> bad [ m_en \ money != aux ]
+   }
+  } %%end prop_deposit
+
+} %%end check_args_integrity
+
+} %%end TEMPLATES
