@@ -42,6 +42,22 @@ public class HashTableTest {
 
     @Test
     public void test_add_2(){
+        int idx = hash.hash_function(3) ;
+
+        hash.add(new Integer(42),idx);
+        hash.add(new Integer(3),0);
+        hash.add(new Integer(38),2);
+
+        HashTable aux = new HashTable(3) ;
+        aux.add(new Integer(42),idx);
+        aux.add(new Integer(3),0);
+        aux.add(new Integer(38),2);
+
+        assertArrayEquals(hash.h,aux.h);
+    }
+
+    @Test
+    public void test_add_3(){
         hash.add(new Integer(42),0);
         hash.add(new Integer(3),1);
         hash.add(new Integer(38),2);
