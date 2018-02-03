@@ -78,6 +78,7 @@ public class HashTable {
   /*@ public normal_behaviour
     @ requires size < capacity ;
     @ ensures (\exists int i; i >= 0 && i < capacity; h[i] == u) ;
+    @ ensures size == \old(size) + 1;
     @ assignable size,h[*] ;
     @
     @ also
