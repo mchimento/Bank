@@ -98,15 +98,13 @@ public class HashTable {
             else {
                 int j = 0;
             /*@ loop_invariant j >= 0 && j <= capacity && i >= 0 && i < capacity;
-		      @ assignable j,i;
-		      @ decreases capacity - j;
-		      @*/
-                while (h[i] != null && j <= capacity) {
+	      @ assignable j,i;
+	      @ decreases capacity - j;
+	      @*/
+                while (h[i] != null && j < capacity) {
                     if (i == capacity-1)
                         i = 0;
-                    else {
-                        i++;
-                    }
+                    i++;
                     j++;
                 }
                 h[i] = u;
