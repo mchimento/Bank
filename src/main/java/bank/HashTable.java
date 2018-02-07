@@ -97,12 +97,12 @@ public class HashTable {
             }
             else {
                 int j = 0;
-            //TODO: Bug found using deductive verification (cannot close the check of the body of the loop invariant)
-            // in the while condition, it should be j < capacity instead of j <= capacity
+            //TODO: Bug found using deductive verification in the body of the while condition, 
+            // else branch missing in the if statement, which should contain i++;
             /*@ loop_invariant j >= 0 && j <= capacity && i >= 0 && i < capacity;
-		      @ assignable j,i;
-		      @ decreases capacity - j;
-		      @*/
+	      @ assignable j,i;
+	      @ decreases capacity - j;
+	      @*/
                 while (h[i] != null && j < capacity) {
                     if (i == capacity-1)
                         i = 0;
@@ -183,9 +183,7 @@ public class HashTable {
     @ */
     public /*@ pure @*/ int contains (Object u) {
         int i = 0 ;
-
-        //TODO: Cannot prove that body preserves the invariants, but no counter-examples.
-        //Generate test cases to accomplish high coverage.
+	    
       /*@ loop_invariant i >= 0 && i <= capacity ;
 	    @ assignable i;
 	    @ decreases capacity - i;
